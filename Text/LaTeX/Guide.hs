@@ -2,7 +2,7 @@
 module Text.LaTeX.Guide (
    -- * Backends
    Backend (..)
- , writeBackend
+ , writeGuide
    -- * Info
  , sectionList
  , contributors
@@ -14,6 +14,6 @@ import qualified Text.LaTeX.Guide.Backend.Wiki  as Wiki
 
 -- | Write in the current directory the LaTeX User's Guide using
 --   a determined backend.
-writeBackend :: Backend -> IO ()
-writeBackend LaTeX = LaTeX.backend
-writeBackend  Wiki =  Wiki.backend
+writeGuide :: Backend -> IO ()
+writeGuide LaTeX = LaTeX.backend
+writeGuide  Wiki =  Wiki.backend
