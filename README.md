@@ -11,7 +11,7 @@ A pdf version (not necessarily updated) can be downloaded from [here](http://dan
 
 To build the guide, first you need to install the library.
 
-Run the following commands to download and install the HEAD version (_requires git_).
+Run the following commands to download and install the HEAD version. _Requires git_.
 
     $ git clone git@github.com:Daniel-Diaz/hatex-guide.git
     $ cd hatex-guide
