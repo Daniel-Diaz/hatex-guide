@@ -1,0 +1,179 @@
+#Basics#
+
+Through this section you will learn the basics of \hatex. Essentially, /how/ it works.
+
+##The Monoid class##
+
+If you are already familiar with the \{Monoid\} class, jump to the next point.
+The \{Monoid\} class is something that you must get used to in Haskell. But don't worry, it is quite simple
+(in spite of the similarity in the name with the \{Monad\} class).
+A /monoid/ in Mathematics is an algebraic structure consisting of a set of objects with
+an operation between them, being this operation /associative/ and with a /neutral element/.
+Phew! But what is the meaning of this? By /associative/ we mean that, if you have three elements
+$a$, $b$ and $c$, then $a*(b*c) = (a*b)*c$. A /neutral element/ is the one that does not worth to operate with,
+because it does nothing! To say, $e$ is a /neutral element/ if $e*a=a*e=a$, given any object $a$.
+As an example, you may take the /real numbers/ as objects and the ordinary multiplication as operation.
+
+Now that you know the math basics behind the \{Monoid\} class, let's see its definition:
+\[
+class Monoid m where
+  mempty :: m
+  mappend :: m -> m -> m
+  mconcat :: [m] -> m
+\]
+See that \{mappend\} corresponds to the monoid operation and \{mempty\} to its neutral element.
+The names of the methods may seem insuitable, but they correspond to an example of monoid:
+the lists with the appending \{(++)\} operation. Who is the neutral element here? The empty list:
+\[
+xs ++ [] = [] ++ xs = xs
+\]
+This class plays a significant role in \hatex. Keep reading.
+
+##LaTeX blocks##
+
+Suppose we have a well-formed\f
+With /well-formed/ we mean that all braces, environments, math expressions, ... are closed.
+\f
+piece of \latex code, call it $a$.
+Now, let \{LaTeX\} be a Haskell type in which each element represents a well-formed
+piece of \latex code. Then, $a$ can be seen as a Haskell expression \{a\} of type \{LaTeX\}.
+We can say that \{a\} is a \{LaTeX\} *block*. What happens if we append, by juxtaposition,
+two \{LaTeX\} blocks? As both are well-formed, so is the result. Thus, two blocks appended form
+another block. This way, we can define an operation over the \{LaTeX\} blocks. If we consider that
+a totally empty code is a well-formed piece of \latex code, we can speak about the empty block.
+And, as the reader may notice, these blocks with its appending form a monoid. Namely, \{LaTeX\}
+can be done an instance of the \{Monoid\} class.
+
+Of course, our mission using \hatex is to create a \{LaTeX\} block that fits our purpose. The
+way to achieve this is to create a multitude of \{LaTeX\} blocks and, then, use the \{Monoid\} operation
+to collapse them all in a single block.
+
+##Creating blocks##
+
+We have now a universe of blocks forming a monoid. What we need now is a way to create these blocks.
+As we said, a block is the representation of a well-formed piece of \latex code. Let \{a\} be the
+block of the \latex expression \{\delta{}\}\f
+Please, note that the \{LaTeX\} block is *not* the same that the \latex expression. The former
+is a Haskell value, not the \latex code itself.
+\f.
+Since this is a constant expression, it has a constant value in Haskell, named \{delta\}. Calling
+this value will generate the desired block.
+
+Other \latex expressions depend on a given argument. For example \{\linespread{x}\}, where \{x\} is
+a number. How we deal with this? As you expect, with functions. We can create blocks that depend on
+values with functions that take these values as arguments, where these arguments can be
+blocks as well. For instance, we have the function \{linespread\} with type:
+\[
+linespread :: Float -> LaTeX
+\]
+As you may know, a title in \latex can contain itself \latex code. So the type for the Haskell
+function \{title\} is:
+\[
+title :: LaTeX -> LaTeX
+\]
+And this is, essentialy, the way to work with \hatex: *to create blocks and combine them*.
+Once you have your final block ready, you will be able to create its corresponding \latex code
+(we will see how later). Note that for every block there is a \latex code, but not for every code
+there is a block, because a malformed (in the sense of the negation of our well-formed concept) code
+has *not* a block in correspondence.
+This fact has a practical consequence: *we cannot create malformed \latex code*. /And that's a good deal!/
+
+###From strings###
+
+Inserting text in a \latex document is a constant task. You can create a block with text given
+an arbitrary \{String\} with the \{fromString\} function, method of the \{IsString\} class:
+\[
+class IsString a where
+ fromString :: String -> a
+\]
+Since there is a set of characters reserved	to create commands or another constructions,
+\hatex takes care and avoids them replacing each reserved character with a command which
+output looks like the original character. For example, the backslash \{\\} is replaced with
+the \{\backslash{}\} command.
+
+The function that avoids reserved characteres is exported with the name \{protectString\}.
+Also, there is a variant for \{Text\} values called \{protectText\}.
+
+The use of the \{IsString\} class is because the /Overloaded Strings/ extension.
+This one is similar to the /Overloaded Numbers/ Haskell feature, which translates the number
+\{4\} to \{fromInteger 4\}. In a similar way, with \{OverloadedStrings\} enabled, the string
+\{"foo"\} is translated to \{fromString "foo"\}. If we now apply this to our blocks,
+the string \{"foo"\} will be automatically translated to a \{latex\} block with /foo/ as content.
+Quite handy! We will assume the \{OverloadedStrings\} extension enabled from now.
+
+###More blocks###
+
+There is a lot of functions for create blocks. In fact, we can say that this is the main purpose
+of the library. \latex has a lot of commands, in order to set font attributes, create tables,
+insert graphics, include mathematical symbols, etc. So \hatex have a function for each command
+defined in \latex (to tell the truth, only for a small subset). Please, go to the API documentation
+to read about particular functions. Build it locally or find it in Hackage: <http://hackage.haskell.org/package/HaTeX>.
+You will find the class constraint \{LaTeXC l\} in every entity. \{LaTeX\} is an instance of this
+class, so you can assume that \{l\} is the \{LaTeX\} datatype without any problem. More about
+this in section about the \{LaTeXC\} class.
+
+##Putting blocks together##
+
+Once you have the blocks, as we said before, you need to append them. The \{mappend\}
+method of the \{Monoid\} class does this work. If \{a\} and \{b\} are two blocks,
+\{mappend a b\}, or \{a `mappend` b\}, or even \{a <> b\}\f
+From *GHC 7.4*, \{(<>)\} is defined as a synonym for \{mappend\}. For previous
+versions of GHC, \hatex exports the synonym.
+\f, is the block with
+\{a\} and \{b\} juxtaposed. For long lists of blocks, you can try it with \{mconcat\}
+as follows:
+\[
+mconcat [ "I can see a "  , textbf "rainbow"
+        , " in the blue " , textit "sky" , "." ]
+\]
+
+##Rendering##
+
+This is the last step in our \latex document creation. When we have our final
+\latex block \{a\}, the function \{renderFile\} can output it into a file, in
+the form of its correspondent \latex code.
+
+Say we have the next definition:
+\[
+short =
+    documentclass [] article
+ <> title "A short message"
+ <> author "John Short"
+ <> document (maketitle <> "This is all.")
+\]
+Then, after call \{renderFile "short.tex" short\} it appears the following file
+in the current working directory (line formatting added for easier visualization):
+\[
+\documentclass{article}
+\title{A short message}
+\author{John Short}
+\begin{document}
+\maketitle{}
+This is all
+\end{document}
+\]
+The function \{renderFile\} is not only for \{LaTeX\} values. Let's see its type:
+\[
+renderFile :: Render a => FilePath -> a -> IO ()
+\]
+The \{Render\} class that appears in the context is defined:
+\[
+class Render a where
+ render :: a -> Text
+\]
+So, it is the class of types that can be rendered to a \{Text\} value. The
+type \{LaTeX\} is an instance, but other types, like \{Int\} or \{Float\}, so are too.
+These instances are useful for creating blocks from other values. With the function
+\{rendertex\}, any value in the \{Render\} class can be transformed to a block. First,
+the value is converted to \{Text\}, and then to \{LaTeX\} the same way we did with strings.
+But, *be careful!* Because \{rendertex\} does *not* escape reserved characters.
+
+##Try yourself##
+
+As always, the best way to learn something well is to try it by yourself.
+Since to see code examples can give you a great help, \hatex comes with several
+examples where you can see by yourself how to get the work done.
+
+The API reference is also a good point to keep in mind. Descriptions of functions
+make you know how exactly they works. And, when they are not present, function names
+with type signatures may be very helpful and descriptive.

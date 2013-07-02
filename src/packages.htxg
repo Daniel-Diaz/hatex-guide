@@ -1,0 +1,35 @@
+#Packages#
+
+\latex, in addition to its predefined commands, has a big number of packages
+that increase its power. \hatex functions for some of these packages are defined
+in separated modules, one module per package. This way, you can import only those
+functions you actually need. Some of these modules are below explained.
+
+##Inputenc##
+
+This package is of vital importance if you use non-ASCII characters in your document.
+For example, if my name is /Ángela/, the /Á/ character will not appear correctly in the
+output. To solve this problem, use the \{Inputenc\} module.
+\[
+import Text.LaTeX.Base
+import Text.LaTeX.Packages.Inputenc
+
+thePreamble :: LaTeX
+thePreamble =
+    documentclass [] article
+ <> usepackage [utf8] inputenc
+ <> author "Ángela"
+ <> title "Issues with non-ASCII characters"
+\]
+Don't forget to set to UTF-8 encoding your Haskell source too.
+
+##Graphicx##
+
+With the \{Graphicx\} package you can insert images in your document and do some
+other transformations. In order to insert an image use the \{includegraphics\}
+function.
+\[
+includegraphics :: LaTeXC l => [IGOption] -> FilePath -> l
+\]
+The list of \{IGOption\}'s allows you to set some properties of the image, like width,
+height, scaling or rotation. See the API documentation for details.

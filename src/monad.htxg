@@ -1,0 +1,143 @@
+#LaTeX blocks and the Writer monad#
+
+##The Writer Monad##
+Fixed a monoid \{M\}, the \{M\}-writer monad is just all possible pairs of elements from \{M\}
+and elements from other types. Thus, the Haskell declaration is as follows\f
+Some authors write it using tuples, like this: \{data W m a = W (a,m)\}.\f:
+\[
+data W m a = W m a
+\]
+Note that to get the monad we need to fix the type \{m\} (kind of monads is \{* -> *\}). To inject
+an arbitrary value into the monad (the Haskell \{return\} function) we use the neutral element (\{mempty\})
+of the monoid.
+\[
+inject :: Monoid m => a -> W m a
+inject a = W mempty a
+\]
+Think that no other element of \{m\} is possible to think: it is the only element we know of it!
+Like any other monad, \{W m\} is also a \{Functor\}. We just apply the function to the value.
+\[
+instance Functor (W m) where
+ fmap f (W m a) = W m (f a)
+\]
+Every \{Monad\} instance can be given by the two monad operations \{inject\} and \{join\}. We already
+defined the \{inject\} function. The other one deletes one monad type constructor.
+\[
+join :: Monoid m => W m (W m a) -> W m a
+join (W m (W m' a)) = W (mappend m m') a
+\]
+In this function we use the other \{Monoid\} method to combine both values. It is important to
+note that in both monad operations \{inject\} and \{join\} we used \{mempty\} and \{mappend\}
+respectively. In practice, this is because they act equal. Indeed, they are equal if we forget the
+\{a\} value. Now, we are ready to define the \{Monad\} instance:
+\[
+instance Monoid m => Monad (W m) where
+ return  = inject
+ w >>= f = join (fmap f w)
+\]
+There is nothing to say about this instance. It is and standard definition valid to any monad.
+
+What we have done here is to hide in a monad a monoid with all its operations. We have created a
+machine that operates monoid values. To insert a value into the machine we need the \{tell\}
+function:
+\[
+tell :: m -> W m ()
+tell m = W m ()
+\]
+When we execute the machine, it returns to us the result of operate all the values we have put on it.
+\[
+execute :: W m a -> m
+execute (W m a) = m
+\]
+Let's see the machine working. For example, the \{Int\} type with addition forms a \{Monoid\}.
+\[
+instance Monoid Int where
+ mempty = 0
+ mappend = (+)
+
+example :: Int
+example = execute $ do
+  tell 1
+  tell 2
+  tell 3
+  tell 4
+\]
+When we evaluate \{example\} we get \{10\}, as expected. Using \{mapM_\} we can rewrite \{example\}.
+\[
+example :: Int
+example = execute $ mapM_ tell [ 1 .. 4 ]
+\]
+|res/machine.png|
+
+##The LaTeX Monad##
+
+Let's go back to the \{LaTeX\} type. Since \{LaTeX\} is an instance of \{Monoid\} we can construct
+its correspondent \{Writer\} monad.
+\[
+type LaTeXW = W LaTeX
+\]
+The \{W\} machine is waiting now for \{LaTeX\} values.
+\[
+example :: LaTeX
+example = execute $ do
+  tell $ documentclass [] article
+  tell $ author "Monads lover"
+  tell $ title "LaTeX and the Writer Monad"
+\]
+We put all that blocks in the machine, and it returns the concatenated block. We saved a lot of
+\{mappend\}'s, but we now have a lot of \{tell\}'s. No problem. Just redefine each function of
+blocks with \{tell\} and \{execute\}.
+\[
+author' :: LaTeXW a -> LaTeXW ()
+author' = tell . author . execute
+\]
+If it is done in a similar way with \{documentclass\} and \{title\}, every \{tell\} in \{example\}
+disappears.
+\[
+example :: LaTeX
+example = execute $ do
+  documentclass' [] article
+  author' "Monads lover"
+  title' "LaTeX and the Writer Monad"
+\]
+And we can now use the \{LaTeX\} machine more comfortably. However, we have all functions duplicated.
+This is why the \{LaTeXC\} class exists. We are going to talk about it later.
+
+##Composing monads##
+
+To add flexibility to \hatex, the writer monad explained above is defined as a monad transformer,
+named \{LaTeXT\}. The way to use it is the same, there are just a few changes.
+
+The first change is in type signatures. We need to carry an inner monad in every type.
+\[
+foo :: Monad m => LaTeXT m a
+\]
+However, in practice, we can avoid it. Say we going to use an specific monad \{M\}.
+\[
+type LaTeXW = LaTeXT M
+
+foo :: LaTeXW a
+\]
+Now, type signatures remain unchanged.
+
+The other change is a new feature: the \{lift\} function. With it we can do any computation
+of our inner monad at any time. For example, suppose we want to output some code we have in
+the file /foo.hs/. Instead of copy all its content, or read and carry it as an argument along the code,
+you can simply read that file using \{lift\} wherever you want.
+\[
+type LaTeXIO = LaTeXT IO
+
+readCode :: FilePath -> LaTeXIO ()
+readCode fp = lift (readFileTex fp) >>= verbatim . raw
+
+example :: LaTeXIO ()
+example = do
+  "This is the code I wrote this morning:"
+  readCode "foo.hs"
+  "It was a funny exercise."
+\]
+Different monads will give different features. In the case we are not interested in any of
+these features, it is enough to use the Identity monad.
+\[
+type LaTeXW = LaTeXT Identity
+\]
