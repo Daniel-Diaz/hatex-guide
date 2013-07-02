@@ -67,7 +67,7 @@ When we evaluate \{example\} we get \{10\}, as expected. Using \{mapM_\} we can 
 example :: Int
 example = execute $ mapM_ tell [ 1 .. 4 ]
 \]
-|res/machine.png|
+|machine.png|
 
 ##The LaTeX Monad##
 

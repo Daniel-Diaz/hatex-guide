@@ -19,6 +19,8 @@ import Data.Version (showVersion,versionBranch)
 import Data.Text (unpack)
 import Data.Text.IO
 import Data.List (intersperse)
+import System.FilePath ((</>))
+import System.Directory (getAppUserDataDirectory)
 
 sectFromInt :: Int -> LaTeX -> LaTeX
 sectFromInt 1 = section
@@ -28,28 +30,28 @@ sectFromInt 4 = paragraph
 sectFromInt 5 = subparagraph
 sectFromInt n = error $ "Subsection with hierarchy of " ++ show n ++ " is not available in the LaTeX backend."
 
-hatexSyntax :: Syntax -> LaTeX
-hatexSyntax (Raw t) = raw $ protectText t
-hatexSyntax (Section n s) = sectFromInt n $ hatexSyntax s
-hatexSyntax (Bold s) = textbf $ hatexSyntax s
-hatexSyntax (Italic s) = textit $ hatexSyntax s
-hatexSyntax (Code b t) = let f = if b then texttt . raw . protectText
-                                      else quote . verbatim
-                             c = ModColor $ RGB255 50 50 255
-                         in color c <> f t <> normalcolor
-hatexSyntax (URL t) = let u = createURL $ unpack t
-                      in  url u
-hatexSyntax (IMG t) = center $ includegraphics [] $ unpack t
-hatexSyntax LaTeX = latex
-hatexSyntax HaTeX = hatex
-hatexSyntax (Math t) = math $ raw t
-hatexSyntax (Footnote s) = footnote $ hatexSyntax s
-hatexSyntax (Append s1 s2) = hatexSyntax s1 <> hatexSyntax s2
-hatexSyntax Empty = mempty
+hatexSyntax :: FilePath -> Syntax -> LaTeX
+hatexSyntax _  (Raw t) = raw $ protectText t
+hatexSyntax fp (Section n s) = sectFromInt n $ hatexSyntax fp s
+hatexSyntax fp (Bold s) = textbf $ hatexSyntax fp s
+hatexSyntax fp (Italic s) = textit $ hatexSyntax fp s
+hatexSyntax _  (Code b t) = let f = if b then texttt . raw . protectText
+                                         else quote . verbatim
+                                c = ModColor $ RGB255 50 50 255
+                            in color c <> f t <> normalcolor
+hatexSyntax _  (URL t) = let u = createURL $ unpack t
+                         in  url u
+hatexSyntax fp (IMG t) = center $ includegraphics [] $ fp </> unpack t
+hatexSyntax _ LaTeX = latex
+hatexSyntax _ HaTeX = hatex
+hatexSyntax _  (Math t) = math $ raw t
+hatexSyntax fp (Footnote s) = footnote $ hatexSyntax fp s
+hatexSyntax fp (Append s1 s2) = hatexSyntax fp s1 <> hatexSyntax fp s2
+hatexSyntax _ Empty = mempty
 
 thePreamble :: LaTeX
 thePreamble =
-    documentclass [] article
+    documentclass [a4paper] article
  <> uselanguage English
  <> usepackage [utf8] inputenc
  <> usepackage [] hyperref
@@ -78,7 +80,10 @@ initial =
  <> thispagestyle empty <> tableofcontents <> newpage
 
 createManual :: IO LaTeX
-createManual = fmap (mappend thePreamble . document . mappend initial . mconcat . intersperse newpage . fmap hatexSyntax) parseSections
+createManual = do
+  d <- getAppUserDataDirectory "hatex-guide"
+  fmap (mappend thePreamble . document . mappend initial
+       . mconcat . intersperse newpage . fmap (hatexSyntax $ d </> "res")) parseSections
 
 backend :: IO ()
 backend = do 

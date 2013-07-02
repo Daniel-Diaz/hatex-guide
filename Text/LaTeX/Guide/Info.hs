@@ -1,9 +1,16 @@
 
-module Text.LaTeX.Guide.Info (sectionList,contributors,Backend(..),parseSections,outputName) where
+module Text.LaTeX.Guide.Info (
+   sectionList
+ , contributors
+ , Backend (..)
+ , parseSections
+ , outputName
+ , otherResources) where
 
 import Text.LaTeX.Guide.Syntax
 import System.FilePath
 import Data.Monoid
+import System.Directory (getAppUserDataDirectory)
 
 -- | Ordered list of sections.
 sectionList :: [String]
@@ -25,7 +32,13 @@ contributors = [ ]
 data Backend = LaTeX | Wiki
 
 parseSections :: IO [Syntax]
-parseSections = mapM (parseFile . (<.> "htxg") . combine "src") sectionList
+parseSections = do
+  d <- getAppUserDataDirectory "hatex-guide"
+  mapM (parseFile . (<.> "htxg") . combine d . combine "src") sectionList
 
 outputName :: String -> FilePath
 outputName = mappend "hatex-guide"
+
+-- |
+otherResources :: [String]
+otherResources = [ "machine.png" ]
