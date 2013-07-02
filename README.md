@@ -23,6 +23,8 @@ For example, `writeGuide LaTeX` will output in the current directory a `.tex` fi
 
 # Contributing to the guide
 
+There are several things to keep in mind to contribute to the guide.
+
 ## Sections
 
 Each section of the guide is written in a different file. Every section is stored in the `src`
@@ -31,8 +33,8 @@ constant defined in the `Text.LaTeX.Guide.Info` module.
 
 ## Syntax
 
-The syntax used to write the guide is described in Core/Syntax.hs, and more detailed in the
-[wiki](https://github.com/Daniel-Diaz/HaTeX-Guide/wiki/Syntax).
+The syntax used to write the guide is described in `Text.LaTeX.Guide.Syntax`.
+The current content can also be helpful to understand it.
 
 ## Images
 
