@@ -21,6 +21,7 @@ import Data.Text.IO
 import Data.List (intersperse)
 import System.FilePath ((</>))
 import System.Directory (getAppUserDataDirectory)
+import qualified Paths_hatex_guide as G
 
 sectFromInt :: Int -> LaTeX -> LaTeX
 sectFromInt 1 = section
@@ -64,7 +65,9 @@ thePreamble =
 theTitle :: LaTeX
 theTitle = let xs = versionBranch version in flushright (
     resizebox (Pt 300) (Pt 40) (textbf "HATEX " <> (rendertex $ head xs)) <> lnbk
- <> textit ("The User's Guide (with version " <> fromString (showVersion version) <> ")") <> lnbk
+ <> textit ("The User's Guide, version "
+ <> fromString (showVersion G.version)
+ <> " (using " <> hatex <> " " <> fromString (showVersion version) <> ")") <> lnbk
  <> rule (Just $ Pt 10) (CustomMeasure textwidth) (Pt 2) <> lnbk
  <> url (createURL "https://github.com/Daniel-Diaz/HaTeX") <> lnbk
  <> textit (textbf "Main author: " <> raw "Daniel D\\'iaz (" <> texttt "dhelta.diaz@gmail.com" <> ")" ) <> lnbk
