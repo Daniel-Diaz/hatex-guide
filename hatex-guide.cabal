@@ -4,6 +4,7 @@ Author: Daniel Díaz
 Category: LaTeX
 Build-type: Custom
 License: BSD3
+License-file: license
 Maintainer: Daniel Díaz (dhelta `dot` diaz `at` gmail `dot` com)
 Bug-reports: https://github.com/Daniel-Diaz/HaTeX-Guide/issues
 Synopsis: HaTeX User's Guide.
