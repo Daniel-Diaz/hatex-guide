@@ -11,6 +11,25 @@ A pdf version (not necessarily updated) can be downloaded from [here](http://dan
 
 To build the guide, first you need to install the library.
 
+## Installing from Hackage
+
+Using _cabal_ you can install the library directly from Hackage.
+
+    $ cabal install hatex-guide
+
+The installed package includes a small library which exports a function
+called `writeGuide`. This function has a parameter indicating the format
+of the output. For example, `writeGuide LaTeX` will write the output in
+the current directory in LaTeX format. Read the package documentation
+to know about the supported formats.
+
+Once the package is installed, run GHCi and run the following session.
+
+    $ import Text.LaTeX.Guide
+    $ writeGuide LaTeX
+
+## Installing HEAD version
+
 Run the following commands to download and install the HEAD version. _Requires git and cabal_.
 
     $ git clone git@github.com:Daniel-Diaz/hatex-guide.git
