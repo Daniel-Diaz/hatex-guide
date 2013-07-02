@@ -1,11 +1,9 @@
 # HaTeX User's Guide
 
-This is the source code of the HaTeX User's Guide. If you want to improve it, feel free to edit.
-Don't forget to add your name in the `contributors` list in
-[Text/LaTeX/Guide/Info.hs](https://github.com/Daniel-Diaz/hatex-guide/blob/master/Text/LaTeX/Guide/Info.hs)
-module if you do so.
+_Welcome to the HaTeX User's Guide!_
 
-A pdf version (not necessarily updated) can be downloaded from [here](http://daniel-diaz.github.com/projects/hatex/hatex-guide.pdf).
+A pdf version (created from the LaTeX output) can be downloaded from
+[here](http://daniel-diaz.github.com/projects/hatex/hatex-guide.pdf).
 
 # Building the guide
 
@@ -13,7 +11,7 @@ To build the guide, first you need to install the library.
 
 ## Installing from Hackage
 
-Using _cabal_ you can install the library directly from Hackage.
+Using _cabal-install_ you can install the library directly from Hackage.
 
     $ cabal install hatex-guide
 
@@ -43,6 +41,8 @@ For example, `writeGuide LaTeX` will output in the current directory a `.tex` fi
 # Contributing to the guide
 
 There are several things to keep in mind to contribute to the guide.
+If you contribute, do not forget to add your name to the `contributors` list to bound in the
+`Text.LaTeX.Guide.Info` module.
 
 ## Sections
 

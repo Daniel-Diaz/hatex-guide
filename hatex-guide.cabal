@@ -1,5 +1,5 @@
 Name: hatex-guide
-Version: 1
+Version: 1.0
 Author: Daniel Díaz
 Category: LaTeX
 Build-type: Custom
@@ -7,7 +7,13 @@ License: BSD3
 Maintainer: Daniel Díaz (dhelta `dot` diaz `at` gmail `dot` com)
 Bug-reports: https://github.com/Daniel-Diaz/HaTeX-Guide/issues
 Synopsis: HaTeX User's Guide.
-Description: Open source user's guide to HaTeX.
+Description: The HaTeX User's Guide is a manual explaining the
+  HaTeX library (<http://hackage.haskell.org/package/HaTeX>).
+  This library can be used to output the guide in different formats.
+  A compiled pdf version of the latex output can be found at
+  <http://daniel-diaz.github.com/projects/hatex/hatex-guide.pdf>.
+  See the README file (<https://github.com/Daniel-Diaz/hatex-guide/blob/master/README.md>)
+  for more details about the guide.
 Cabal-version: >= 1.6
 Extra-source-files:
   -- README file
