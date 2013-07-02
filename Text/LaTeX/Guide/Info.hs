@@ -8,12 +8,12 @@ import Data.Monoid
 -- | Ordered list of sections.
 sectionList :: [String]
 sectionList = [
-   "Preface"
- , "Basics"
- , "Monad"
- , "Class"
- , "Packages"
- , "Epilogue"
+   "preface"
+ , "basics"
+ , "monad"
+ , "class"
+ , "packages"
+ , "epilogue"
  ]
 
 -- | List of contributors. Please, insert your name here if you have contributed
@@ -25,7 +25,7 @@ contributors = [ ]
 data Backend = LaTeX | Wiki
 
 parseSections :: IO [Syntax]
-parseSections = mapM (parseFile . (<.> "ssyn") . combine "src") sectionList
+parseSections = mapM (parseFile . (<.> "htxg") . combine "src") sectionList
 
 outputName :: String -> FilePath
 outputName = mappend "hatex-guide"
