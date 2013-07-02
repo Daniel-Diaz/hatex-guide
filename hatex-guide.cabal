@@ -1,0 +1,41 @@
+Name: hatex-guide
+Version: 1
+Author: Daniel Díaz
+Category: LaTeX
+Build-type: Simple
+License: BSD3
+Maintainer: Daniel Díaz (dhelta `dot` diaz `at` gmail `dot` com)
+Bug-reports: https://github.com/Daniel-Diaz/HaTeX-Guide/issues
+Synopsis: HaTeX User's Guide.
+Description: Open source user's guide to HaTeX.
+Cabal-version: >= 1.6
+Extra-source-files:
+  -- README file
+  README.md
+  -- Source of the guide
+  src/basics.htxg
+  src/class.htxg
+  src/epilogue.htxg
+  src/monad.htxg
+  src/packages.htxg
+  src/preface.htxg
+  -- Other resources (like images)
+  res/machine.png
+
+Source-repository head
+  type: git
+  location: git@github.com:Daniel-Diaz/HaTeX-Guide.git
+
+Library
+  Build-depends: base == 4.*
+               , HaTeX == 3.6.*
+               , text
+               , filepath
+               , parsec
+  Exposed-modules:
+    Text.LaTeX.Guide
+  Other-modules:
+    Text.LaTeX.Guide.Syntax
+    Text.LaTeX.Guide.Info
+    Text.LaTeX.Guide.Backend.LaTeX
+    Text.LaTeX.Guide.Backend.Wiki
