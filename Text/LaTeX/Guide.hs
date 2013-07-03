@@ -18,9 +18,11 @@ module Text.LaTeX.Guide (
    -- * Info
  , sectionList
  , contributors
+ , guideVersion
  ) where
 
 import Text.LaTeX.Guide.Info
+import Text.LaTeX.Guide.Aux (guideVersion)
 import qualified Text.LaTeX.Guide.Backend.LaTeX as LaTeX
 import qualified Text.LaTeX.Guide.Backend.Wiki  as Wiki
 

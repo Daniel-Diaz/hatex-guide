@@ -1,8 +1,8 @@
 Name: hatex-guide
-Version: 1.0
+Version: 1.0.1.3
 Author: Daniel Díaz
-Category: LaTeX
 Build-type: Custom
+Category: LaTeX
 License: BSD3
 License-file: license
 Maintainer: Daniel Díaz (dhelta `dot` diaz `at` gmail `dot` com)
@@ -43,7 +43,7 @@ Library
   Exposed-modules:
     Text.LaTeX.Guide
   Other-modules:
-    Paths_hatex_guide
+    Text.LaTeX.Guide.Aux
     Text.LaTeX.Guide.Syntax
     Text.LaTeX.Guide.Info
     Text.LaTeX.Guide.Backend.LaTeX
