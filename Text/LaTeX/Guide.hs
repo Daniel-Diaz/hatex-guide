@@ -22,7 +22,7 @@ module Text.LaTeX.Guide (
  ) where
 
 import Text.LaTeX.Guide.Info
-import Text.LaTeX.Guide.Aux (guideVersion)
+import Text.LaTeX.Guide.Auto (guideVersion)
 import qualified Text.LaTeX.Guide.Backend.LaTeX as LaTeX
 import qualified Text.LaTeX.Guide.Backend.Wiki  as Wiki
 

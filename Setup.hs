@@ -27,7 +27,7 @@ main = do
   -- Write aux module
   let dg = "Text" </> "LaTeX" </> "Guide"
   createDirectoryIfMissing True dg
-  getAux >>= writeFile (dg </> "Aux" <.> "hs") . auxmodule
+  getAux >>= writeFile (dg </> "Auto" <.> "hs") . auxmodule
   --
   defaultMain
 
@@ -40,7 +40,8 @@ getAux = do
 
 auxmodule :: Aux -> String
 auxmodule a = unlines [
-   "module Text.LaTeX.Guide.Aux ("
+   "-- | Automatically generated module."
+ , "module Text.LaTeX.Guide.Auto ("
  , "  guideVersion"
  , "    ) where"
  , ""

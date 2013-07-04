@@ -7,7 +7,7 @@ module Text.LaTeX.Guide.Backend.LaTeX (
 
 import Text.LaTeX.Guide.Syntax
 import Text.LaTeX.Guide.Info hiding (LaTeX)
-import Text.LaTeX.Guide.Aux
+import Text.LaTeX.Guide.Auto
 --
 import Text.LaTeX
 import Text.LaTeX.Packages.Color
