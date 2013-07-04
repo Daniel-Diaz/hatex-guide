@@ -42,13 +42,16 @@ hatexSyntax _  (Code b t) = let f = if b then texttt . raw . protectText
                             in color c <> f t <> normalcolor
 hatexSyntax _  (URL t) = let u = createURL $ unpack t
                          in  url u
-hatexSyntax fp (IMG t) = center $ includegraphics [] $ fp </> unpack t
+hatexSyntax fp (IMG t) = center $ includegraphics [] $ forwardSlashes $ fp </> unpack t
 hatexSyntax _ LaTeX = latex
 hatexSyntax _ HaTeX = hatex
 hatexSyntax _  (Math t) = math $ raw t
 hatexSyntax fp (Footnote s) = footnote $ hatexSyntax fp s
 hatexSyntax fp (Append s1 s2) = hatexSyntax fp s1 <> hatexSyntax fp s2
 hatexSyntax _ Empty = mempty
+
+forwardSlashes :: String -> String
+forwardSlashes = fmap $ \c -> if c == '\\' then '/' else c
 
 thePreamble :: LaTeX
 thePreamble =
