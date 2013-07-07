@@ -19,10 +19,13 @@ module Text.LaTeX.Guide (
  , sectionList
  , contributors
  , guideVersion
+   -- * Editing
+ , updateGuide
  ) where
 
 import Text.LaTeX.Guide.Info
 import Text.LaTeX.Guide.Auto (guideVersion)
+import Text.LaTeX.Guide.Update
 import qualified Text.LaTeX.Guide.Backend.LaTeX as LaTeX
 import qualified Text.LaTeX.Guide.Backend.Wiki  as Wiki
 

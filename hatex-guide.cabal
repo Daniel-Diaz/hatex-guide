@@ -1,5 +1,5 @@
 Name: hatex-guide
-Version: 1.0.1.6
+Version: 1.0.2
 Author: Daniel Díaz
 Build-type: Custom
 Category: LaTeX
@@ -46,5 +46,6 @@ Library
     Text.LaTeX.Guide.Auto
     Text.LaTeX.Guide.Syntax
     Text.LaTeX.Guide.Info
+    Text.LaTeX.Guide.Update
     Text.LaTeX.Guide.Backend.LaTeX
     Text.LaTeX.Guide.Backend.Wiki
