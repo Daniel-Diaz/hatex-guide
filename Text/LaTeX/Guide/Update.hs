@@ -18,7 +18,7 @@ import Text.LaTeX.Guide.Info (sectionList,otherResources)
 --
 --   More in detail, @updateGuide fp@ sets the current directory
 --   to @fp@, then it looks in the @src@ and @res@ directories
---   for the file specified in 'sectionList' and 'otherResources'
+--   for the files specified by 'sectionList' and 'otherResources'
 --   respectively. Then, it copies these files overwriting those
 --   in the user /hatex-guide/ directory. This way, the next time
 --   that 'writeGuide' is called it will use the updated files.

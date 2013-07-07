@@ -16,6 +16,7 @@ import Text.LaTeX.Packages.Graphicx
 import Text.LaTeX.Packages.Inputenc
 import Text.LaTeX.Packages.AMSMath
 import Text.LaTeX.Packages.Babel
+import Text.LaTeX.Packages.Fontenc
 import Data.Version (showVersion,versionBranch)
 import Data.Text (unpack)
 import Data.Text.IO
@@ -38,7 +39,7 @@ hatexSyntax fp (Bold s) = textbf $ hatexSyntax fp s
 hatexSyntax fp (Italic s) = textit $ hatexSyntax fp s
 hatexSyntax _  (Code b t) = let f = if b then texttt . raw . protectText
                                          else quote . verbatim
-                                c = ModColor $ RGB255 50 50 255
+                                c = ModColor $ RGB255 156 62 0
                             in color c <> f t <> normalcolor
 hatexSyntax _  (URL t) = let u = createURL $ unpack t
                          in  url u
@@ -53,6 +54,10 @@ hatexSyntax _ Empty = mempty
 forwardSlashes :: String -> String
 forwardSlashes = fmap $ \c -> if c == '\\' then '/' else c
 
+-- Space between paragraphs
+parSpace :: Measure
+parSpace = In 0.15
+
 thePreamble :: LaTeX
 thePreamble =
     documentclass [a4paper] article
@@ -61,9 +66,13 @@ thePreamble =
  <> usepackage [] hyperref
  <> usepackage [] graphicx
  <> usepackage [] pcolor
+ <> usepackage ["textwidth=6in"] "geometry"
  <> title ("The " <> hatex <> " User's Guide")
  <> author (raw "Daniel D\\'iaz")
- <> linespread 1.4
+ <> linespread 1.2
+ <> usepackage [] "mathptmx"
+ -- <> raw "\\renewcommand{\\rmdefault}{pbk}"
+ <> raw ("\\setlength{\\parskip}{" <> render parSpace <> "}")
 
 theTitle :: LaTeX
 theTitle = let xs = versionBranch version in flushright (

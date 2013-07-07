@@ -141,8 +141,8 @@ short =
  <> author "John Short"
  <> document (maketitle <> "This is all.")
 \]
-Then, after call \{renderFile "short.tex" short\} it appears the following file
-in the current working directory (line formatting added for easier visualization):
+Then, after calling \{renderFile "short.tex" short\}, the following file appears
+in the current working directory (line breaks added for easier visualization):
 \[
 \documentclass{article}
 \title{A short message}
@@ -152,6 +152,9 @@ in the current working directory (line formatting added for easier visualization
 This is all
 \end{document}
 \]
+Finally, you may use commands like \{latex\} or \{pdflatex\} to compile the \latex
+output to dvi or pdf.
+
 The function \{renderFile\} is not only for \{LaTeX\} values. Let's see its type:
 \[
 renderFile :: Render a => FilePath -> a -> IO ()

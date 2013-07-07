@@ -17,6 +17,7 @@ module Text.LaTeX.Guide (
  , writeGuide
    -- * Info
  , sectionList
+ , otherResources
  , contributors
  , guideVersion
    -- * Editing

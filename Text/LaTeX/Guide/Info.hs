@@ -39,6 +39,8 @@ parseSections = do
 outputName :: String -> FilePath
 outputName = mappend "hatex-guide"
 
--- |
+-- | Other resources (images).
+--
+--   Files stored under the /res/ directory.
 otherResources :: [String]
 otherResources = [ "machine.png" ]
