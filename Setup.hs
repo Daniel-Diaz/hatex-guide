@@ -4,7 +4,7 @@ import System.Directory
   , getAppUserDataDirectory
   , createDirectoryIfMissing
     )
-import Text.LaTeX.Guide.Info (sectionList,otherResources)
+import Text.LaTeX.Guide.Update
 import System.FilePath ((</>),(<.>))
 import Control.Applicative ((<$>))
 -- Cabal
@@ -17,13 +17,8 @@ import Data.Version
 
 main :: IO ()
 main = do
-  d <-  getAppUserDataDirectory "hatex-guide"
-  createDirectoryIfMissing True $ d </> "src"
-  createDirectoryIfMissing True $ d </> "res"
-  mapM_ (\s -> let fp = "src" </> s <.> "htxg"
-               in  copyFile fp $ d </> fp) sectionList
-  mapM_ (\r -> let fp = "res" </> r
-               in  copyFile fp $ d </> fp) otherResources
+  -- Update (create if missing) guide files
+  updateGuide "."
   -- Write aux module
   let dg = "Text" </> "LaTeX" </> "Guide"
   createDirectoryIfMissing True dg
