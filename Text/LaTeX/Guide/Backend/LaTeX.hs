@@ -17,6 +17,7 @@ import Text.LaTeX.Packages.Inputenc
 import Text.LaTeX.Packages.AMSMath
 import Text.LaTeX.Packages.Babel
 import Text.LaTeX.Packages.Fontenc
+import Text.LaTeX.Packages.Fancyhdr
 import Data.Version (showVersion,versionBranch)
 import Data.Text (unpack)
 import Data.Text.IO
@@ -73,6 +74,12 @@ thePreamble =
  <> usepackage [] "mathptmx"
  -- <> raw "\\renewcommand{\\rmdefault}{pbk}"
  <> raw ("\\setlength{\\parskip}{" <> render parSpace <> "}")
+ <> applyHdrSettings hdrSettings
+
+hdrSettings :: HdrSettings
+hdrSettings = defaultHdrSettings
+  { centerHeader = "The " <> hatex <> " User's Guide"
+    }
 
 theTitle :: LaTeX
 theTitle = let xs = versionBranch version in flushright (

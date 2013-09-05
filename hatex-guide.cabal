@@ -35,7 +35,7 @@ Source-repository head
 
 Library
   Build-depends: base == 4.*
-               , HaTeX == 3.6.*
+               , HaTeX >= 3.7.0.0 && < 3.8.0.0
                , text == 0.11.*
                , filepath
                , parsec >= 3.1.2 && < 3.2
