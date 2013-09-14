@@ -29,9 +29,11 @@ import Text.LaTeX.Guide.Auto (guideVersion)
 import Text.LaTeX.Guide.Update
 import qualified Text.LaTeX.Guide.Backend.LaTeX as LaTeX
 import qualified Text.LaTeX.Guide.Backend.Wiki  as Wiki
+import qualified Text.LaTeX.Guide.Backend.HTML  as HTML
 
 -- | Write in the current directory the LaTeX User's Guide using
 --   a determined backend.
 writeGuide :: Backend -> IO ()
 writeGuide LaTeX = LaTeX.backend
 writeGuide  Wiki =  Wiki.backend
+writeGuide  HTML =  HTML.backend

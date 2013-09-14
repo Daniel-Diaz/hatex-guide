@@ -29,7 +29,7 @@ contributors :: [String]
 contributors = [ ]
 
 -- | Available backends.
-data Backend = LaTeX | Wiki
+data Backend = LaTeX | Wiki | HTML
 
 parseSections :: IO [Syntax]
 parseSections = do
