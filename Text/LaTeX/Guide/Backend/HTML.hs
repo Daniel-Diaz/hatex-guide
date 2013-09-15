@@ -150,7 +150,7 @@ htmlConfig :: Html -> IO Html
 htmlConfig h = do
   return $ H.docTypeHtml $ do 
     H.head $ do
-      H.link ! A.rel "stylesheet" ! A.href "hatex.css"
+      H.link ! A.rel "stylesheet" ! A.href "https://rawgithub.com/Daniel-Diaz/hatex-guide/master/hatex.css"
     H.body $ htmlTitle <> H.hr <> h
 
 createManual :: IO Html
