@@ -14,7 +14,8 @@ To build the guide, first you need to install the library.
 
 ## Installing from Hackage
 
-Using _cabal-install_ you can install the library directly from Hackage.
+Using _cabal-install_ you can install the library directly from
+[Hackage](http://hackage.haskell.org/package/hatex-guide).
 
     $ cabal install hatex-guide
 

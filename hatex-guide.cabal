@@ -13,7 +13,7 @@ Description: The HaTeX User's Guide is a manual explaining the
   This library can be used to output the guide in different formats.
   A compiled pdf version of the latex output can be found at
   <http://daniel-diaz.github.com/projects/hatex/hatex-guide.pdf>.
-  The onlince HTML version is in
+  The online HTML version is in
   <http://daniel-diaz.github.com/projects/hatex/hatex-guide.html>.
   See the README file (<https://github.com/Daniel-Diaz/hatex-guide/blob/master/README.md>)
   for more details.
