@@ -147,8 +147,8 @@ htmlTitle d = do
     toHtml (" using " :: String)
     H.a ! A.href "http://hackage.haskell.org/package/blaze-html" $ "blaze-html"
     toHtml ("." :: String)
-  H.p  !A.class_ "centered" $ H.i $ do
-    toHtml $ "Generated on " ++ showGregorian d ++ "."
+  H.p  ! A.class_ "centered" $ H.i $ toHtml $ "Generated on " ++ showGregorian d ++ "."
+  H.p  ! A.class_ "centered" $ toHtml $ mconcat $ intersperse ", " $ "Daniel Díaz" : contributors
 
 htmlConfig :: Html -> IO Html
 htmlConfig h = do
