@@ -1,0 +1,19 @@
+body{ font-family: sans-serif ;
+      margin-left:  100pt ;
+      margin-right: 100pt ;
+      }
+
+p{ text-align: justify ;
+   }
+
+h1.title{ text-align: center ;
+          font-size: 3em ;
+         }
+
+p.centered{ text-align: center ; }
+
+code{ background-color: #99FFCC ;
+      }
+
+pre{ background-color: #E0E0E0 ;
+     }

@@ -47,3 +47,4 @@ Library
     Text.LaTeX.Guide.Backend.LaTeX
     Text.LaTeX.Guide.Backend.Wiki
     Text.LaTeX.Guide.Backend.HTML
+  GHC-options: -Wall

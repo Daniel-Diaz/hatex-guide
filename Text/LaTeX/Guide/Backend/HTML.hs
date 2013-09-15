@@ -19,6 +19,7 @@ import Data.Monoid
 import Control.Monad.Trans.State
 import Control.Applicative ((<$>))
 import Data.List (intersperse)
+import Data.Version (showVersion)
 
 resURL :: Text -> Text
 resURL t = "https://raw.github.com/Daniel-Diaz/hatex-guide/master/res/" <> t
@@ -103,9 +104,9 @@ htmlSyntax (Section n s) = do
           toHtml $ showSN t'
           toHtml (". " :: String)
           htmlBody $ execState (htmlSyntax s) defaultState
-  modify $ \s -> s { sectionNumber = t'
-                   , tocHtml = tocHtml s <> H.br <> fortoc
-                     }
+  modify $ \st -> st { sectionNumber = t'
+                     , tocHtml = tocHtml st <> H.br <> fortoc
+                       }
 htmlSyntax (Bold s) = ihtmlf H.b $ htmlSyntax s
 htmlSyntax (Italic s) = ihtmlf H.i $ htmlSyntax s
 htmlSyntax (Code b t) =
@@ -119,21 +120,41 @@ htmlSyntax (Math t) = ihtml $ H.i $ toHtml t
 htmlSyntax (Append s1 s2) = htmlSyntax s1 >> htmlSyntax s2
 htmlSyntax Empty = return ()
 htmlSyntax (Footnote x) = do
-  s <- get
-  let i = fnIndex s
+  s0 <- get
+  let i = fnIndex s0
       str = '[' : (show i ++ "]")
-      s'  = execState (htmlSyntax x) $ s { htmlBody = mempty }
+      s1  = execState (htmlSyntax x) $ s0 { htmlBody = mempty }
       fn = H.p $ do H.a ! A.id (preEscapedToValue $ 'f' : show i) $ toHtml str
                     toHtml (" - " :: String)
-                    htmlBody s'
+                    htmlBody s1
       h  = H.a ! A.href (preEscapedToValue $ "#f" ++ show i) $ toHtml str
   modify $ \s -> s { fnIndex = fnIndex s + 1
                    , fnHtml = fnHtml s <> fn
                    , htmlBody = htmlBody s <> h
                      }
+htmlSyntax (Paragraph s) = do
+  ihtmlf H.p $ htmlSyntax s
+  ihtml $ toHtml ("\n\n" :: String)
+
+htmlTitle :: Html
+htmlTitle = do
+  H.h1 ! A.class_ "title" $ "The HaTeX User's Guide"
+  let vstr = "Version " ++ showVersion guideVersion
+  H.p  ! A.class_ "centered" $ H.i $ do
+    toHtml vstr
+    toHtml (" using " :: String)
+    H.a ! A.href "http://hackage.haskell.org/package/blaze-html" $ "blaze-html"
+    toHtml ("." :: String)
+
+htmlConfig :: Html -> IO Html
+htmlConfig h = do
+  return $ H.docTypeHtml $ do 
+    H.head $ do
+      H.link ! A.rel "stylesheet" ! A.href "hatex.css"
+    H.body $ htmlTitle <> H.hr <> h
 
 createManual :: IO Html
-createManual = fmap (execHtmlM . sequence_ . fmap htmlSyntax) parseSections
+createManual = fmap (execHtmlM . sequence_ . fmap htmlSyntax) parseSections >>= htmlConfig
 
 backend :: IO ()
 backend = do

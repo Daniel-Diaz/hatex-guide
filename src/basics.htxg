@@ -15,18 +15,22 @@ because it does nothing! To say, $e$ is a /neutral element/ if $e*a=a*e=a$, give
 As an example, you may take the /real numbers/ as objects and the ordinary multiplication as operation.
 
 Now that you know the math basics behind the \{Monoid\} class, let's see its definition:
+
 \[
 class Monoid m where
   mempty :: m
   mappend :: m -> m -> m
   mconcat :: [m] -> m
 \]
+
 See that \{mappend\} corresponds to the monoid operation and \{mempty\} to its neutral element.
 The names of the methods may seem insuitable, but they correspond to an example of monoid:
 the lists with the appending \{(++)\} operation. Who is the neutral element here? The empty list:
+
 \[
 xs ++ [] = [] ++ xs = xs
 \]
+
 This class plays a significant role in \hatex. Keep reading.
 
 ##LaTeX blocks##
@@ -63,14 +67,18 @@ Other \latex expressions depend on a given argument. For example \{\linespread{x
 a number. How we deal with this? As you expect, with functions. We can create blocks that depend on
 values with functions that take these values as arguments, where these arguments can be
 blocks as well. For instance, we have the function \{linespread\} with type:
+
 \[
 linespread :: Float -> LaTeX
 \]
+
 As you may know, a title in \latex can contain itself \latex code. So the type for the Haskell
 function \{title\} is:
+
 \[
 title :: LaTeX -> LaTeX
 \]
+
 And this is, essentialy, the way to work with \hatex: *to create blocks and combine them*.
 Once you have your final block ready, you will be able to create its corresponding \latex code
 (we will see how later). Note that for every block there is a \latex code, but not for every code
@@ -82,10 +90,12 @@ This fact has a practical consequence: *we cannot create malformed \latex code*.
 
 Inserting text in a \latex document is a constant task. You can create a block with text given
 an arbitrary \{String\} with the \{fromString\} function, method of the \{IsString\} class:
+
 \[
 class IsString a where
  fromString :: String -> a
 \]
+
 Since there is a set of characters reserved	to create commands or another constructions,
 \hatex takes care and avoids them replacing each reserved character with a command which
 output looks like the original character. For example, the backslash \{\\} is replaced with
@@ -122,6 +132,7 @@ versions of GHC, \hatex exports the synonym.
 \f, is the block with
 \{a\} and \{b\} juxtaposed. For long lists of blocks, you can try it with \{mconcat\}
 as follows:
+
 \[
 mconcat [ "I can see a "  , textbf "rainbow"
         , " in the blue " , textit "sky" , "." ]
@@ -134,6 +145,7 @@ This is the last step in our \latex document creation. When we have our final
 the form of its correspondent \latex code.
 
 Say we have the next definition:
+
 \[
 short =
     documentclass [] article
@@ -141,8 +153,10 @@ short =
  <> author "John Short"
  <> document (maketitle <> "This is all.")
 \]
+
 Then, after calling \{renderFile "short.tex" short\}, the following file appears
 in the current working directory (line breaks added for easier visualization):
+
 \[
 \documentclass{article}
 \title{A short message}
@@ -152,18 +166,23 @@ in the current working directory (line breaks added for easier visualization):
 This is all
 \end{document}
 \]
+
 Finally, you may use commands like \{latex\} or \{pdflatex\} to compile the \latex
 output to dvi or pdf.
 
 The function \{renderFile\} is not only for \{LaTeX\} values. Let's see its type:
+
 \[
 renderFile :: Render a => FilePath -> a -> IO ()
 \]
+
 The \{Render\} class that appears in the context is defined:
+
 \[
 class Render a where
  render :: a -> Text
 \]
+
 So, it is the class of types that can be rendered to a \{Text\} value. The
 type \{LaTeX\} is an instance, but other types, like \{Int\} or \{Float\}, so are too.
 These instances are useful for creating blocks from other values. With the function

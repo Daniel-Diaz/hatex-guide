@@ -13,12 +13,7 @@ import Data.Text.IO
 import Data.Functor
 import Data.Function
 import Prelude (Eq (..), Num (..),IO,Monad (..), Int, uncurry, Show (..))
-import Data.Maybe
-import Control.Arrow
-import Text.LaTeX.Base (version)
-import Data.Version (showVersion)
 import Data.String (IsString (..))
-import Data.Bool
 
 (<>) :: Monoid m => m -> m -> m
 (<>) = mappend
@@ -55,7 +50,7 @@ syntaxWiki (Code b t) =
   in  text $ f t
 syntaxWiki (URL t) = text t
 -- Images no supported.
-syntaxWiki (IMG t) = mempty
+syntaxWiki (IMG _) = mempty
 syntaxWiki LaTeX = text "LaTeX"
 syntaxWiki HaTeX = text "HaTeX"
 syntaxWiki (Math t) = text $ tag "math" t
@@ -67,6 +62,7 @@ syntaxWiki (Footnote s) =
        g = \n -> if n == i0 then t else f n
    in (i+1,g, "[[#Footnotes|" <> tag "sup" (fromString $ show i0) <> "]]")
     )
+syntaxWiki (Paragraph s) = syntaxWiki s <> text "\n\n"
 syntaxWiki (Append s1 s2) = syntaxWiki s1 <> syntaxWiki s2
 syntaxWiki Empty = mempty
 
@@ -79,9 +75,9 @@ ending = mempty
 renderWiki :: Wiki -> Text
 renderWiki (Wiki f) = initial <> t <> foots <> ending
  where
-  (last,footf,t) = f (0 , const mempty)
+  (l,footf,t) = f (0 , const mempty)
   foots = unlines $ "\n\n==Footnotes==\n" :
-    fmap (\n -> tag "sup" (fromString $ show n) <> ": " <> strip (footf n) <> "\n") [ 1 .. last ]
+    fmap (\n -> tag "sup" (fromString $ show n) <> ": " <> strip (footf n) <> "\n") [ 1 .. l ]
 
 backend :: IO ()
 backend = fmap (strip . renderWiki . syntaxWiki . mconcat . fmap (syntLineBreaks . (Raw "\n\n" <>))) parseSections >>= writeFile (outputName ".wiki")

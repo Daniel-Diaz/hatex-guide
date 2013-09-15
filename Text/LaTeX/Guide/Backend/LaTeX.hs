@@ -16,7 +16,6 @@ import Text.LaTeX.Packages.Graphicx
 import Text.LaTeX.Packages.Inputenc
 import Text.LaTeX.Packages.AMSMath
 import Text.LaTeX.Packages.Babel
-import Text.LaTeX.Packages.Fontenc
 import Text.LaTeX.Packages.Fancyhdr
 import Data.Version (showVersion,versionBranch)
 import Data.Text (unpack)
@@ -49,6 +48,7 @@ hatexSyntax _ LaTeX = latex
 hatexSyntax _ HaTeX = hatex
 hatexSyntax _  (Math t) = math $ raw t
 hatexSyntax fp (Footnote s) = footnote $ hatexSyntax fp s
+hatexSyntax fp (Paragraph s) = hatexSyntax fp s <> raw "\n\n"
 hatexSyntax fp (Append s1 s2) = hatexSyntax fp s1 <> hatexSyntax fp s2
 hatexSyntax _ Empty = mempty
 
