@@ -45,7 +45,7 @@ For example, `writeGuide LaTeX` will output in the current directory a `.tex` fi
 # Contributing to the guide
 
 There are several things to keep in mind to contribute to the guide.
-If you contribute, do not forget to add your name to the `contributors` list to bound in the
+If you contribute, do not forget to add your name to the `contributors` list which you can find in the
 `Text.LaTeX.Guide.Info` module.
 
 ## Sections
