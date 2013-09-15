@@ -20,6 +20,8 @@ import Control.Monad.Trans.State
 import Control.Applicative ((<$>))
 import Data.List (intersperse)
 import Data.Version (showVersion)
+-- Time
+import Data.Time
 
 resURL :: Text -> Text
 resURL t = "https://raw.github.com/Daniel-Diaz/hatex-guide/master/res/" <> t
@@ -136,8 +138,8 @@ htmlSyntax (Paragraph s) = do
   ihtmlf H.p $ htmlSyntax s
   ihtml $ toHtml ("\n\n" :: String)
 
-htmlTitle :: Html
-htmlTitle = do
+htmlTitle :: Day -> Html
+htmlTitle d = do
   H.h1 ! A.class_ "title" $ "The HaTeX User's Guide"
   let vstr = "Version " ++ showVersion guideVersion
   H.p  ! A.class_ "centered" $ H.i $ do
@@ -145,13 +147,16 @@ htmlTitle = do
     toHtml (" using " :: String)
     H.a ! A.href "http://hackage.haskell.org/package/blaze-html" $ "blaze-html"
     toHtml ("." :: String)
+  H.p  !A.class_ "centered" $ H.i $ do
+    toHtml $ "Generated on " ++ showGregorian d ++ "."
 
 htmlConfig :: Html -> IO Html
 htmlConfig h = do
+  d <- utctDay <$> getCurrentTime
   return $ H.docTypeHtml $ do 
     H.head $ do
       H.link ! A.rel "stylesheet" ! A.href "https://rawgithub.com/Daniel-Diaz/hatex-guide/master/hatex.css"
-    H.body $ htmlTitle <> H.hr <> h
+    H.body $ htmlTitle d <> H.hr <> h
 
 createManual :: IO Html
 createManual = fmap (execHtmlM . sequence_ . fmap htmlSyntax) parseSections >>= htmlConfig

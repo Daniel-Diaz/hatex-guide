@@ -5,6 +5,9 @@ _Welcome to the HaTeX User's Guide!_
 A pdf version (created from the LaTeX output) can be downloaded from
 [here](http://daniel-diaz.github.com/projects/hatex/hatex-guide.pdf).
 
+An online version (created from the HTML output) can be seen
+[here](http://daniel-diaz.github.com/projects/hatex/hatex-guide.html).
+
 # Building the guide
 
 To build the guide, first you need to install the library.
