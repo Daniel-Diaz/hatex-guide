@@ -7,16 +7,13 @@ module Text.LaTeX.Guide.Backend.Wiki (
 
 import Text.LaTeX.Guide.Syntax
 import Text.LaTeX.Guide.Info hiding (Backend(..))
-import Data.Monoid (Monoid (..))
+import Data.Monoid
 import Data.Text
 import Data.Text.IO
 import Data.Functor
 import Data.Function
 import Prelude (Eq (..), Num (..),IO,Monad (..), Int, uncurry, Show (..))
 import Data.String (IsString (..))
-
-(<>) :: Monoid m => m -> m -> m
-(<>) = mappend
 
 tag :: Text -> Text -> Text
 tag t x = mconcat [ "<" , t , ">" , x , "</" , t , ">" ]
@@ -38,7 +35,7 @@ syntaxWiki (Raw t) = text t
 syntaxWiki (Section n s) =
   let m = 1 + n
       d = text $ replicate m "="
-  in d <> syntaxWiki s <> d
+  in d <> syntaxWiki s <> d <> text "\n\n"
 syntaxWiki (Bold s) =
   let d = text "'''"
   in  d <> syntaxWiki s <> d

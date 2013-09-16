@@ -155,6 +155,7 @@ htmlConfig h = do
   d <- utctDay <$> getCurrentTime
   return $ H.docTypeHtml $ do 
     H.head $ do
+      H.title "The HaTeX User's Guide"
       H.link ! A.rel "stylesheet" ! A.href "https://rawgithub.com/Daniel-Diaz/hatex-guide/master/hatex.css"
     H.body $ htmlTitle d <> H.hr <> h
 
