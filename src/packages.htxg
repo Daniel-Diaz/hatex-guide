@@ -2,7 +2,7 @@
 
 \latex, in addition to its predefined commands, has a big number of packages
 that increase its power. \hatex functions for some of these packages are defined
-in separated modules, one module per package. This way, you can import only those
+in separated modules, with one or more modules per package. This way, you can import only those
 functions you actually need. Some of these modules are below explained.
 
 ##Inputenc##

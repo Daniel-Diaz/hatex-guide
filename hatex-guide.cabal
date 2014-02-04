@@ -1,5 +1,5 @@
 Name: hatex-guide
-Version: 1.3.0.0
+Version: 1.3.0.1
 Author: Daniel Díaz
 Build-type: Custom
 Category: LaTeX
@@ -32,12 +32,12 @@ Source-repository head
 
 Library
   Build-depends: base == 4.*
-               , HaTeX >= 3.7.0.0 && < 3.10.0.0
-               , text == 0.11.*
+               , HaTeX >= 3.7.0.0 && < 3.11.0.0
+               , text >= 0.11 && < 2
                , filepath >= 1.1.0.0 && < 1.4
                , parsec >= 3.1.2 && < 3.2
                , directory >= 1.2.0.0 && < 1.3
-               , blaze-html >= 0.5.1.0 && < 0.7
+               , blaze-html >= 0.5.1.0 && < 0.8
                , transformers >= 0.3.0.0 && < 0.4
                , time >= 1.2.0.2 && < 1.5
   Exposed-modules:
