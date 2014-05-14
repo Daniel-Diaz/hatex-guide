@@ -44,7 +44,7 @@ syntaxWiki (Italic s) =
   in  d <> syntaxWiki s <> d
 syntaxWiki (Code b t) =
   let f = tag $ if b then "hask" else "haskell"
-  in  text $ f t
+  in  (text $ f t) <> (if b then mempty else text "\n\n")
 syntaxWiki (URL t) = text t
 -- Images no supported.
 syntaxWiki (IMG _) = mempty
