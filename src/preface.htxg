@@ -2,32 +2,39 @@
 
 ##Introduction##
 
-If you are here because you want to learn more about \hatex, or just feel
-curious, you are in the right place. First of all, note that this guide is addressed to that
-people that already knows the basics of both Haskell and \latex. Otherwise, try to learn first
-a bit of these languages (both are quite useful learnings). To learn Haskell, though I guess
-you already learned it since you are reading these lines, go to the Haskell web [<http://haskell.org>]
-and search for some tutorials or books. To learn \latex, you can start with
-/The not so short introduction to \latex/ [<http://tobi.oetiker.ch/lshort/lshort.pdf>].
+If you are here to learn more about \hatex, or are just curious, you are in the
+right place. First of all, note that this guide is aimed at those who already
+know the basics of both Haskell and \latex. If you don't, first try to learn
+a bit of each (both are quite useful). To learn Haskell, start with some
+tutorials and suggestions at the excellent Haskell website
+[<http://haskell.org>]. To
+learn \latex, start with /The not so short introduction to \latex/
+[<http://tobi.oetiker.ch/lshort/lshort.pdf>].
 
-The \hatex library aspires to be the tool that Haskellers could want to make their
-\latex things without exit of their language (we understand that is difficult to leave
-Haskell after the first date), trying to be the most comprehensive and well done as possible.
-Do you think, anyway, that something could be done better? Perhaps something is lacked? Go
-then to the \hatex mailing list [<http://projects.haskell.org/cgi-bin/mailman/listinfo/hatex>]
-and leave your complain without mercy! Or, in the case you are a GitHub user, say your word
-in the issue list [<https://github.com/Daniel-Diaz/HaTeX/issues>] or, to be awesome,
-make yourself a patch and send a pull request. This is the great thing about open source projects!
+The \hatex library aspires to be the tool with which Haskellers want to
+construct their \latex documents while working within their beloved language.
+\hatex tries to be as comprehensive and well constructed as possible.
+Do you still think that something could be better? Is something lacking,
+perhaps? Then go to the \hatex mailing list
+[<http://projects.haskell.org/cgi-bin/mailman/listinfo/hatex>]
+and complain without mercy! Or, if you are a GitHub user, create an issue
+[<https://github.com/Daniel-Diaz/HaTeX/issues>] or, to be awesome,
+create a patch and send a pull request. This is one of the great things about
+open source projects!
 
 ##What is HaTeX?##
 
-Before we explain /how/ \hatex works, it is convenient to say /what/ actually \hatex is.
+Before explaining /how/ \hatex works, it is convenient to state /what/ \hatex
+actually is.
 
-/\hatex is a Haskell library that provides functions to create, manipulate and parse \latex code./
+/\hatex is a Haskell library that provides functions to create, manipulate and
+parse \latex code./
 
-People often says that /\hatex is a \latex DSL/. With it you can enjoy all the advantages
-you already have in Haskell while creating \latex documents. A common purpose is to
-automatize the creation of such documents, perhaps from a source data in Haskell.
-A more exotic one is to render chess tables. Possibilities are in a wide range.
-The idea is the following: if you can do it with \latex, you can do it with \hatex,
-but adding all the Haskell features.
+People often say that /\hatex is a \latex DSL/, or Domain Specific Language.
+With it you can enjoy all the many advantages of Haskell while creating \latex
+documents. A common use is the
+automatic creation of such documents, perhaps from a Haskell data source.
+A more exotic one is to render chessboard situations. Possibilities are limited
+only by the imagination. The goal is this: if you can do it with \latex, you can
+do it with \hatex,
+while taking advantage of all that Haskell offers.
