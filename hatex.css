@@ -18,6 +18,6 @@ code{ background-color: #F9F970 ;
 pre{ background-color: #E0E0E0 ;
      }
 
-li { margin-bottom: 15px; }
+li { margin-bottom: 15px; text-align: justify; }
 
 a:link { text-decoration: none; }
