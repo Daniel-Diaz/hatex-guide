@@ -12,8 +12,12 @@ h1.title{ text-align: center ;
 
 p.centered{ text-align: center ; }
 
-code{ background-color: #99FFCC ;
+code{ background-color: #F9F970 ;
       }
 
 pre{ background-color: #E0E0E0 ;
      }
+
+li { margin-bottom: 15px; }
+
+a:link { text-decoration: none; }
