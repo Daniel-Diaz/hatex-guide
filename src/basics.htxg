@@ -6,13 +6,14 @@ Through this section you will learn the basics of \hatex. Essentially, /how/ it 
 
 If you are already familiar with the \{Monoid\} class, jump to the next point.
 The \{Monoid\} class is something that you must get used to in Haskell. But don't worry, it is quite simple
-(in spite of the similarity in the name with the \{Monad\} class).
-A /monoid/ in Mathematics is an algebraic structure consisting of a set of objects with
-an operation between them, being this operation /associative/ and with a /neutral element/.
+(despite having a similar name to the \{Monad\} class).
+A /monoid/ in Mathematics is an algebraic structure consisting of a set of objects, 
+an /associative/ operation and a /neutral element/.
 Phew! But what is the meaning of this? By /associative/ we mean that, if you have three elements
-$a$, $b$ and $c$, then $a*(b*c) = (a*b)*c$. A /neutral element/ is the one that does not worth to operate with,
-because it does nothing! To say, $e$ is a /neutral element/ if $e*a=a*e=a$, given any object $a$.
-As an example, you may take the /real numbers/ as objects and the ordinary multiplication as operation.
+$a$, $b$ and $c$, then $a*(b*c) = (a*b)*c$. A /neutral element/ is one that does not change other values when operated with,
+because it means nothing with respect to the operation! To say, $e$ is a /neutral element/ if $e*a=a*e=a$, given any object $a$.
+As an example, you may take the /real numbers/ as objects and the ordinary multiplication as operation, in which case
+the /neutral element/ would be the number one.
 
 Now that you know the math basics behind the \{Monoid\} class, let's see its definition:
 
@@ -24,8 +25,8 @@ class Monoid m where
 \]
 
 See that \{mappend\} corresponds to the monoid operation and \{mempty\} to its neutral element.
-The names of the methods may seem insuitable, but they correspond to an example of monoid:
-the lists with the appending \{(++)\} operation. Who is the neutral element here? The empty list:
+The names of the methods may seem unsuitable, but they correspond to a particular case of monoid:
+the lists with the appending \{(++)\} operation. What is the neutral element here? The empty list:
 
 \[
 xs ++ [] = [] ++ xs = xs
