@@ -26,7 +26,7 @@ sectionList = [
 -- | List of contributors. Please, insert your name here if you have contributed
 --   in some way to the guide.
 contributors :: [String]
-contributors = [ ]
+contributors = [ GetContented ]
 
 -- | Available backends.
 data Backend = LaTeX | Wiki | HTML
