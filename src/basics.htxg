@@ -36,7 +36,7 @@ This class plays a significant role in \hatex. Keep reading.
 ##LaTeX blocks##
 
 Suppose we have a well-formed\f
-With /well-formed/ we mean that all braces, environments, math expressions, ... are closed.
+By /well-formed/ we mean all braces, environments, math expressions, ... are closed.
 \f
 piece of \latex code, call it $a$.
 Now, let \{LaTeX\} be a Haskell type in which each element represents a well-formed
@@ -45,12 +45,12 @@ We can say that \{a\} is a \{LaTeX\} *block*. What happens if we append, by juxt
 two \{LaTeX\} blocks? As both are well-formed, so is the result. Thus, two blocks appended form
 another block. This way, we can define an operation over the \{LaTeX\} blocks. If we consider that
 a totally empty code is a well-formed piece of \latex code, we can speak about the empty block.
-And, as the reader may notice, these blocks with its appending form a monoid. Namely, \{LaTeX\}
-can be done an instance of the \{Monoid\} class.
+And, as the reader may notice, these blocks with the append operation form a monoid. Namely, \{LaTeX\}
+is an instance of the \{Monoid\} class.
 
-Of course, our mission using \hatex is to create a \{LaTeX\} block that fits our purpose. The
-way to achieve this is to create a multitude of \{LaTeX\} blocks and, then, use the \{Monoid\} operation
-to collapse them all in a single block.
+Of course, our objective when using \hatex is to create a \{LaTeX\} block that fits our purpose. The
+way to achieve this is to create a multitude of \{LaTeX\} blocks and use the \{Monoid\} operation
+to collapse them into a single block.
 
 ##Creating blocks##
 
