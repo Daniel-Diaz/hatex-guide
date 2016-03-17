@@ -54,7 +54,7 @@ to collapse them all in a single block.
 
 ##Creating blocks##
 
-We have now a universe of blocks forming a monoid. What we need now is a way to create these blocks.
+We now have a universe of blocks that form a monoid. What we need is a way to create these blocks.
 As we said, a block is the representation of a well-formed piece of \latex code. Let \{a\} be the
 block of the \latex expression \{\delta{}\}\f
 Please, note that the \{LaTeX\} block is *not* the same that the \latex expression. The former
@@ -64,7 +64,7 @@ Since this is a constant expression, it has a constant value in Haskell, named \
 this value will generate the desired block.
 
 Other \latex expressions depend on a given argument. For example \{\linespread{x}\}, where \{x\} is
-a number. How we deal with this? As you expect, with functions. We can create blocks that depend on
+a number. How do we use these? As you would expect, with functions. We can create blocks that depend on
 values with functions that take these values as arguments, where these arguments can be
 blocks as well. For instance, we have the function \{linespread\} with type:
 
@@ -72,19 +72,19 @@ blocks as well. For instance, we have the function \{linespread\} with type:
 linespread :: Float -> LaTeX
 \]
 
-As you may know, a title in \latex can contain itself \latex code. So the type for the Haskell
+As you may know, a title in \latex can itself contain \latex code. So the type for the Haskell
 function \{title\} is:
 
 \[
 title :: LaTeX -> LaTeX
 \]
 
-And this is, essentialy, the way to work with \hatex: *to create blocks and combine them*.
-Once you have your final block ready, you will be able to create its corresponding \latex code
-(we will see how later). Note that for every block there is a \latex code, but not for every code
-there is a block, because a malformed (in the sense of the negation of our well-formed concept) code
-has *not* a block in correspondence.
-This fact has a practical consequence: *we cannot create malformed \latex code*. /And that's a good deal!/
+And this is essentialy the way we work with \hatex: *to create blocks and combine them*.
+Once you have your final block ready, you will be able to create the \latex code that corresponds to it
+(we will see how later). Note that there is \latex code for every block, but not every piece of \latex
+has a block, because a malformed (in the sense of the negation of our well-formed concept) code
+doe *not* have a corresponding block.
+This fact has a practical consequence: *we cannot create malformed \latex code* using \hatex. /And that's a good thing!/
 
 ###From strings###
 
