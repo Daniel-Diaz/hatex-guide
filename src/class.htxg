@@ -5,12 +5,12 @@ as \{Monad\} actions. If we want to keep both interfaces we have two choices: to
 function definitions\f
 This was the approach taken in \hatex 3 until the version 3.3, where the \{LaTeXC\} class was included.
 \f
-or to have a typeclass which unifies both interfaces. Since duplicate definitions is a hard work
-and can arise problems\f
+or to have a typeclass which unifies both interfaces. Since having duplicate definitions is hard work
+and can raise many problems\f
 In fact, we had a problem with \hatex-meta, the program that automatically generated the duplicated functions.
-The problem was described in a blog post: <http://deltadiaz.blogspot.com.es/2012/04/hatex-trees-and-problems.html>.
+The problem was described in the following blog post: <http://deltadiaz.blogspot.com.es/2012/04/hatex-trees-and-problems.html>.
 \f, we took the second alternative and defined the \{LaTeXC\} typeclass. Both \{LaTeX\} and \{LaTeXT m a\} are
-instances of \{LaTeXC\} (the second one is a little tricky), so every function in \hatex is defined using the
-typeclass. This way, we have both interfaces with a single import, without being worry about maintaining
-duplicated code. The cost is to have class constraints in type signatures. But these constraints are only required
-in the package. At the user level, you choose your interface and write type signatures in consequence.
+instances of \{LaTeXC\} (the second one is a little tricky), so every function in \hatex is defined using this
+typeclass. This way, we can have both interfaces with a single import, without being worried about maintaining
+duplicated code. The cost for this is that we must have class constraints in our type signatures. However, these constraints are only
+required in the package. At the user level, you choose your interface and write type signatures correspondingly.
