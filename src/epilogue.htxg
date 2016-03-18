@@ -2,16 +2,17 @@
 
 ##Notes about this guide##
 
-*This guide is not static*. It will certainly be changed with the time.
-Any reader can participate as a writer since the guide is itself open source (and
-written in Haskell!). The source repository can be reached at:
-<https://github.com/Daniel-Diaz/hatex-guide>. Read more detailed instructions in the
+*This guide is not static*. It will certainly be changed as time passes.
+Any reader can also help participate in its writing, since the guide is itself open source (and
+written in Haskell!). The source repository can be found at:
+<https://github.com/Daniel-Diaz/hatex-guide>. You can read more detailed instructions in the
 README file.
 
-If you think there is something unclear, something hard to understand, please, report it.
+If you think something is unclear, or hard to understand, please do take the time to report it.
+We really appreciate it.
 
 ##Notes from the author##
 
-I would like to end this guide saying thanks to all the people that has been interested
-in \hatex somehow, especially to those who contributed to it with patches, opinions
-or bug reports. *Thanks*.
+I would like to end this guide by saying thanks to all the people that have been interested
+in \hatex in any way, especially to those who contributed to it with patches, opinions
+and/or bug reports. *Thanks*.
