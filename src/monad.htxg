@@ -1,7 +1,7 @@
 #LaTeX blocks and the Writer monad#
 
 ##The Writer Monad##
-Fixed a monoid \{M\}, the \{M\}-writer monad is just all possible pairs of elements from \{M\}
+For any given monoid, \{M\}, the \{M\}-writer monad is just all possible pairs of elements from \{M\}
 and elements from other types. Thus, the Haskell declaration is as follows\f
 Some authors write it using tuples, like this: \{data W m a = W (a,m)\}.\f:
 
