@@ -2,8 +2,8 @@
 
 \latex, in addition to its predefined commands, has a big number of packages
 that increase its power. \hatex functions for some of these packages are defined
-in separated modules, with one or more modules per package. This way, you can import only those
-functions you actually need. Some of these modules are below explained.
+in separate modules, with one or more modules per package. This way you can import only the
+functions you actually need. Some of these modules are explained below.
 
 ##Inputenc##
 
@@ -23,17 +23,17 @@ thePreamble =
  <> title "Issues with non-ASCII characters"
 \]
 
-Don't forget to set to UTF-8 encoding your Haskell source too.
+Don't forget to set to UTF-8 encoding in your Haskell source too.
 
 ##Graphicx##
 
-With the \{Graphicx\} package you can insert images in your document and do some
-other transformations. In order to insert an image use the \{includegraphics\}
+With the \{Graphicx\} package, you can insert images in your document and do some
+other transformations to them. In order to insert an image, use the \{includegraphics\}
 function.
 
 \[
 includegraphics :: LaTeXC l => [IGOption] -> FilePath -> l
 \]
 
-The list of \{IGOption\}'s allows you to set some properties of the image, like width,
+The list of \{IGOption\}'s allows you to set some properties of the image like width,
 height, scaling or rotation. See the API documentation for details.
