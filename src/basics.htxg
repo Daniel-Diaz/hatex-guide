@@ -98,40 +98,40 @@ class IsString a where
 \]
 
 Since there is a set of characters reserved	to create commands or another constructions,
-\hatex takes care and avoids them replacing each reserved character with a command which
-output looks like the original character. For example, the backslash \{\\} is replaced with
+\hatex takes care to avoid using them, replacing each with a command whose
+output looks like the originally intended character. For example, the backslash \{\\} is replaced with
 the \{\backslash{}\} command.
 
 The function that avoids reserved characteres is exported with the name \{protectString\}.
 Also, there is a variant for \{Text\} values called \{protectText\}.
 
 The use of the \{IsString\} class is because the /Overloaded Strings/ extension.
-This one is similar to the /Overloaded Numbers/ Haskell feature, which translates the number
+This is similar to the /Overloaded Numbers/ Haskell feature, which translates the number
 \{4\} to \{fromInteger 4\}. In a similar way, with \{OverloadedStrings\} enabled, the string
 \{"foo"\} is translated to \{fromString "foo"\}. If we now apply this to our blocks,
 the string \{"foo"\} will be automatically translated to a \{latex\} block with /foo/ as content.
-Quite handy! We will assume the \{OverloadedStrings\} extension enabled from now.
+Quite handy! We will assume that the \{OverloadedStrings\} extension is enabled from now on.
 
 ###More blocks###
 
-There is a lot of functions for create blocks. In fact, we can say that this is the main purpose
-of the library. \latex has a lot of commands, in order to set font attributes, create tables,
-insert graphics, include mathematical symbols, etc. So \hatex have a function for each command
-defined in \latex (to tell the truth, only for a small subset). Please, go to the API documentation
-to read about particular functions. Build it locally or find it in Hackage: <http://hackage.haskell.org/package/HaTeX>.
+There are a lot of functions to create blocks. In fact, we can say this is the primary purpose
+of the library. \latex has a lot of commands; commands to set font attributes, create tables,
+insert graphics, include mathematical symbols, etc. So \hatex has a function for each command
+defined in \latex (to tell the truth, only for a small subset). Please go to the API documentation
+to read about particular functions. Build this locally or find it on Hackage: <http://hackage.haskell.org/package/HaTeX>.
 You will find the class constraint \{LaTeXC l\} in every entity. \{LaTeX\} is an instance of this
-class, so you can assume that \{l\} is the \{LaTeX\} datatype without any problem. More about
-this in section about the \{LaTeXC\} class.
+class, so you can think of \{l\} as the \{LaTeX\} datatype without any problem. There is more about
+this in the section about the \{LaTeXC\} class.
 
 ##Putting blocks together##
 
-Once you have the blocks, as we said before, you need to append them. The \{mappend\}
-method of the \{Monoid\} class does this work. If \{a\} and \{b\} are two blocks,
+Once you have your blocks, as we said before, you need to join them. The \{mappend\}
+method of the \{Monoid\} class will do this. If \{a\} and \{b\} are two blocks,
 \{mappend a b\}, or \{a `mappend` b\}, or even \{a <> b\}\f
 From *GHC 7.4*, \{(<>)\} is defined as a synonym for \{mappend\}. For previous
 versions of GHC, \hatex exports the synonym.
 \f, is the block with
-\{a\} and \{b\} juxtaposed. For long lists of blocks, you can try it with \{mconcat\}
+\{a\} and \{b\} juxtaposed. For lists of blocks, you can use \{mconcat\} instead,
 as follows:
 
 \[
@@ -142,10 +142,10 @@ mconcat [ "I can see a "  , textbf "rainbow"
 ##Rendering##
 
 This is the last step in our \latex document creation. When we have our final
-\latex block \{a\}, the function \{renderFile\} can output it into a file, in
+\latex block \{a\}, the function \{renderFile\} can output it to a file, in
 the form of its correspondent \latex code.
 
-Say we have the next definition:
+Say we have this definition:
 
 \[
 short =
@@ -155,7 +155,7 @@ short =
  <> document (maketitle <> "This is all.")
 \]
 
-Then, after calling \{renderFile "short.tex" short\}, the following file appears
+Then, after calling \{renderFile "short.tex" short\}, the following file will appear
 in the current working directory (line breaks added for easier visualization):
 
 \[
@@ -185,18 +185,18 @@ class Render a where
 \]
 
 So, it is the class of types that can be rendered to a \{Text\} value. The
-type \{LaTeX\} is an instance, but other types, like \{Int\} or \{Float\}, so are too.
+type \{LaTeX\} is an instance, but other types, like \{Int\} or \{Float\}, are too.
 These instances are useful for creating blocks from other values. With the function
 \{rendertex\}, any value in the \{Render\} class can be transformed to a block. First,
 the value is converted to \{Text\}, and then to \{LaTeX\} the same way we did with strings.
-But, *be careful!* Because \{rendertex\} does *not* escape reserved characters.
+But, *be careful!* because \{rendertex\} does *not* escape reserved characters.
 
-##Try yourself##
+##Try it yourself##
 
-As always, the best way to learn something well is to try it by yourself.
-Since to see code examples can give you a great help, \hatex comes with several
-examples where you can see by yourself how to get the work done.
+As always, the best way to learn something well is to try it for yourself.
+Since looking at code examples can help you greatly, \hatex comes with several
+examples so you can see for yourself how to accomplish various tasks.
 
-The API reference is also a good point to keep in mind. Descriptions of functions
-make you know how exactly they works. And, when they are not present, function names
-with type signatures may be very helpful and descriptive.
+The API reference is also a good reference to keep in mind. Descriptions of functions
+allow you to know exactly how they work. Even when these are not present, though, just the
+function names and their type signatures can be very helpful and descriptive.
