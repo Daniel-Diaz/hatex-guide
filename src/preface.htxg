@@ -5,7 +5,7 @@
 If you are here to learn more about \hatex, or are just curious, you are in the
 right place. First of all, note that this guide is aimed at those who already
 know the basics of both Haskell and \latex. If you don't, first try to learn
-a bit of each (both are quite useful). To learn Haskell, start with some
+some of each (both are quite useful). To learn Haskell, start with some
 tutorials and suggestions at the excellent Haskell website
 [<http://haskell.org>]. To
 learn \latex, start with /The not so short introduction to \latex/
@@ -13,28 +13,28 @@ learn \latex, start with /The not so short introduction to \latex/
 
 The \hatex library aspires to be the tool with which Haskellers want to
 construct their \latex documents while working within their beloved language.
-\hatex tries to be as comprehensive and well constructed as possible.
-Do you still think that something could be better? Is something lacking,
-perhaps? Then go to the \hatex mailing list
+\hatex tries to be as comprehensive and well-constructed as possible.
+Do you still think something could be better? Is something lacking,
+perhaps? If so, go to the \hatex mailing list
 [<http://projects.haskell.org/cgi-bin/mailman/listinfo/hatex>]
 and complain without mercy! Or, if you are a GitHub user, create an issue
-[<https://github.com/Daniel-Diaz/HaTeX/issues>] or, to be awesome,
+[<https://github.com/Daniel-Diaz/HaTeX/issues>] or, to be even more awesome,
 create a patch and send a pull request. This is one of the great things about
 open source projects!
 
 ##What is HaTeX?##
 
-Before explaining /how/ \hatex works, it is convenient to state /what/ \hatex
+Before explaining /how/ \hatex works, let's state /what/ \hatex
 actually is.
 
 /\hatex is a Haskell library that provides functions to create, manipulate and
 parse \latex code./
 
 People often say that /\hatex is a \latex DSL/, or Domain Specific Language.
-With it you can enjoy all the many advantages of Haskell while creating \latex
+With it, you can enjoy all the many advantages of Haskell while creating \latex
 documents. A common use is the
 automatic creation of such documents, perhaps from a Haskell data source.
-A more exotic one is to render chessboard situations. Possibilities are limited
-only by the imagination. The goal is this: if you can do it with \latex, you can
+A more exotic one would be to render chessboard situations. Possibilities are limited
+only by the imagination. The goal is: if you can do it with \latex, you can
 do it with \hatex,
 while taking advantage of all that Haskell offers.
