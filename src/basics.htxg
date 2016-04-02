@@ -102,7 +102,7 @@ Since there is a set of characters reserved	to create commands or another constr
 output looks like the originally intended character. For example, the backslash \{\\} is replaced with
 the \{\backslash{}\} command.
 
-The function that avoids reserved characteres is exported with the name \{protectString\}.
+The function that avoids reserved characters is exported with the name \{protectString\}.
 Also, there is a variant for \{Text\} values called \{protectText\}.
 
 The use of the \{IsString\} class is because the /Overloaded Strings/ extension.
@@ -115,10 +115,11 @@ Quite handy! We will assume that the \{OverloadedStrings\} extension is enabled 
 ###More blocks###
 
 There are a lot of functions to create blocks. In fact, we can say this is the primary purpose
-of the library. \latex has a lot of commands; commands to set font attributes, create tables,
+of the library. \latex has a lot of commands: they can set font attributes, create tables,
 insert graphics, include mathematical symbols, etc. So \hatex has a function for each command
 defined in \latex (to tell the truth, only for a small subset). Please go to the API documentation
-to read about particular functions. Build this locally or find it on Hackage: <http://hackage.haskell.org/package/HaTeX>.
+to read about particular functions - you can either build it locally or find it on Hackage: 
+<http://hackage.haskell.org/package/HaTeX>.
 You will find the class constraint \{LaTeXC l\} in every entity. \{LaTeX\} is an instance of this
 class, so you can think of \{l\} as the \{LaTeX\} datatype without any problem. There is more about
 this in the section about the \{LaTeXC\} class.
@@ -130,9 +131,8 @@ method of the \{Monoid\} class will do this. If \{a\} and \{b\} are two blocks,
 \{mappend a b\}, or \{a `mappend` b\}, or even \{a <> b\}\f
 From *GHC 7.4*, \{(<>)\} is defined as a synonym for \{mappend\}. For previous
 versions of GHC, \hatex exports the synonym.
-\f, is the block with
-\{a\} and \{b\} juxtaposed. For lists of blocks, you can use \{mconcat\} instead,
-as follows:
+\f, return the juxtaposition of \{a\} and \{b\}. 
+For lists of blocks, you can use \{mconcat\} instead as follows:
 
 \[
 mconcat [ "I can see a "  , textbf "rainbow"
@@ -168,8 +168,8 @@ This is all
 \end{document}
 \]
 
-Finally, you may use commands like \{latex\} or \{pdflatex\} to compile the \latex
-output to dvi or pdf.
+Finally, you may use commands like \{latex\} or \{pdflatex\} in your command line environment
+to compile the \latex output to dvi or pdf.
 
 The function \{renderFile\} is not only for \{LaTeX\} values. Let's see its type:
 
@@ -177,7 +177,7 @@ The function \{renderFile\} is not only for \{LaTeX\} values. Let's see its type
 renderFile :: Render a => FilePath -> a -> IO ()
 \]
 
-The \{Render\} class that appears in the context is defined:
+The \{Render\} class that appears in the context is defined as:
 
 \[
 class Render a where
@@ -188,15 +188,16 @@ So, it is the class of types that can be rendered to a \{Text\} value. The
 type \{LaTeX\} is an instance, but other types, like \{Int\} or \{Float\}, are too.
 These instances are useful for creating blocks from other values. With the function
 \{rendertex\}, any value in the \{Render\} class can be transformed to a block. First,
-the value is converted to \{Text\}, and then to \{LaTeX\} the same way we did with strings.
-But, *be careful!* because \{rendertex\} does *not* escape reserved characters.
+the value is converted to \{Text\}, and then to \{LaTeX\} in the same way as we did with strings.
+But, *be careful* because \{rendertex\} does *not* escape reserved characters.
 
 ##Try it yourself##
 
 As always, the best way to learn something well is to try it for yourself.
 Since looking at code examples can help you greatly, \hatex comes with several
-examples so you can see for yourself how to accomplish various tasks.
+examples at [<https://github.com/Daniel-Diaz/HaTeX/tree/master/Examples>] so 
+you can see for yourself how to accomplish various tasks.
 
 The API reference is also a good reference to keep in mind. Descriptions of functions
-allow you to know exactly how they work. Even when these are not present, though, just the
+allow you to know exactly how they work. Even when these are not present, just the
 function names and their type signatures can be very helpful and descriptive.
