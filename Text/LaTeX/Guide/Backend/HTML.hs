@@ -17,7 +17,6 @@ import Data.Text.Lazy.IO
 --
 import Data.Monoid
 import Control.Monad.Trans.State
-import Control.Applicative ((<$>))
 import Data.List (intersperse)
 import Data.Version (showVersion)
 -- Time

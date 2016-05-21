@@ -12,7 +12,7 @@ import Data.Text
 import Data.Text.IO
 import Data.Functor
 import Data.Function
-import Prelude (Eq (..), Num (..),IO,Monad (..), Int, uncurry, Show (..))
+import Prelude (Eq (..), Num (..),IO,Monad (..), Int, Show (..))
 import Data.String (IsString (..))
 
 tag :: Text -> Text -> Text

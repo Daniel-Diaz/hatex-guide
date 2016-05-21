@@ -9,7 +9,6 @@ module Text.LaTeX.Guide.Info (
 
 import Text.LaTeX.Guide.Syntax
 import System.FilePath
-import Data.Monoid
 import System.Directory (getAppUserDataDirectory)
 
 -- | Ordered list of sections.
@@ -26,7 +25,7 @@ sectionList = [
 -- | List of contributors. Please, insert your name here if you have contributed
 --   in some way to the guide.
 contributors :: [String]
-contributors = [ GetContented ]
+contributors = [ "GetContented" ]
 
 -- | Available backends.
 data Backend = LaTeX | Wiki | HTML
