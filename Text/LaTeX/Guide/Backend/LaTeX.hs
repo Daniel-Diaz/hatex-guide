@@ -39,7 +39,7 @@ hatexSyntax fp (Bold s) = textbf $ hatexSyntax fp s
 hatexSyntax fp (Italic s) = textit $ hatexSyntax fp s
 hatexSyntax _  (Code b t) = let f = if b then texttt . raw . protectText
                                          else quote . verbatim
-                                c = ModColor $ RGB255 156 62 0
+                                c = ModColor $ RGB255 100 100 255
                             in color c <> f t <> normalcolor
 hatexSyntax _  (URL t) = let u = createURL $ unpack t
                          in  url u
