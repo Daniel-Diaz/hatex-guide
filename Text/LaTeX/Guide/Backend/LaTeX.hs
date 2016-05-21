@@ -71,7 +71,7 @@ thePreamble =
  <> title ("The " <> hatex <> " User's Guide")
  <> author (raw "Daniel D\\'iaz")
  <> linespread 1.2
- <> usepackage [] "mathptmx"
+ -- <> usepackage [] "mathptmx"
  -- <> raw "\\renewcommand{\\rmdefault}{pbk}"
  <> raw ("\\setlength{\\parskip}{" <> render parSpace <> "}")
  <> applyHdrSettings hdrSettings
