@@ -1,5 +1,5 @@
 
-{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE OverloadedStrings, CPP #-}
 
 module Text.LaTeX.Guide.Backend.HTML (
   backend
@@ -21,6 +21,10 @@ import Data.List (intersperse)
 import Data.Version (showVersion)
 -- Time
 import Data.Time
+
+#if !MIN_VERSION_base(4,8,0)
+import Control.Applicative ((<$>))
+#endif
 
 resURL :: Text -> Text
 resURL t = "https://raw.github.com/Daniel-Diaz/hatex-guide/master/res/" <> t

@@ -1,4 +1,6 @@
 
+{-# LANGUAGE CPP #-}
+
 module Text.LaTeX.Guide.Info (
    sectionList
  , contributors
@@ -10,6 +12,14 @@ module Text.LaTeX.Guide.Info (
 import Text.LaTeX.Guide.Syntax
 import System.FilePath
 import System.Directory (getAppUserDataDirectory)
+
+#ifndef MIN_VERSION_base
+#define MIN_VERSION_base(x,y,z) 0
+#endif
+
+#if !MIN_VERSION_base(4,8,0)
+import Data.Monoid (mappend)
+#endif
 
 -- | Ordered list of sections.
 sectionList :: [String]
