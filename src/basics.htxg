@@ -84,7 +84,7 @@ And this is essentialy the way we work with \hatex: *to create blocks and combin
 Once you have your final block ready, you will be able to create the \latex code that corresponds to it
 (we will see how later). Note that there is \latex code for every block, but not every piece of \latex
 has a block, because a malformed (in the sense of the negation of our well-formed concept) code
-doe *not* have a corresponding block.
+does *not* have a corresponding block.
 This fact has a practical consequence: *we cannot create malformed \latex code* using \hatex. /And that's a good thing!/
 
 ###From strings###
