@@ -12,7 +12,7 @@ import Data.Text
 import Data.Text.IO
 import Data.Functor
 import Data.Function
-import Prelude (Eq (..), Num (..),IO,Monad (..), Int, Show (..))
+import Prelude (Eq (..), Num (..),IO,Monad (..), Int, Show (..), Semigroup)
 import Data.String (IsString (..))
 
 tag :: Text -> Text -> Text
@@ -20,12 +20,14 @@ tag t x = mconcat [ "<" , t , ">" , x , "</" , t , ">" ]
 
 data Wiki = Wiki ( (Int,Int -> Text) -> (Int,Int -> Text,Text) )
 
-instance Monoid Wiki where
- mempty = Wiki $ \(i,f) -> (i,f,mempty)
- mappend (Wiki g) (Wiki g') =
+instance Semigroup Wiki where
+ (Wiki g) <> (Wiki g') =
    Wiki $ \s -> let (i',f',t) = g s
                     (i'',f'',t') = g' (i',f')
-                in  (i'',f'',mappend t t')
+                in  (i'',f'',t <> t')
+
+instance Monoid Wiki where
+ mempty = Wiki $ \(i,f) -> (i,f,mempty)
 
 text :: Text -> Wiki
 text t = Wiki $ \(i,f) -> (i,f,t)
