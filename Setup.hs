@@ -10,7 +10,7 @@ import Control.Applicative ((<$>))
 -- Cabal
 import Distribution.Simple
 import Distribution.PackageDescription
-import Distribution.PackageDescription.Parse (readPackageDescription)
+import Distribution.PackageDescription.Parsec (readGenericPackageDescription)
 import Distribution.Verbosity (normal)
 -- Version
 import Data.Version
@@ -30,7 +30,7 @@ data Aux = Aux { guideVersion :: Version }
 
 getAux :: IO Aux
 getAux = do
-  pd <- packageDescription <$> readPackageDescription normal "hatex-guide.cabal"
+  pd <- packageDescription <$> readGenericPackageDescription normal "hatex-guide.cabal"
   return $ Aux (pkgVersion $ package pd)
 
 auxmodule :: Aux -> String
