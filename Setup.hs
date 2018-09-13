@@ -12,8 +12,6 @@ import Distribution.Simple
 import Distribution.PackageDescription
 import Distribution.PackageDescription.Parsec (readGenericPackageDescription)
 import Distribution.Verbosity (normal)
--- Version
-import Data.Version
 
 main :: IO ()
 main = do
@@ -45,5 +43,5 @@ auxmodule a = unlines [
  , "-- | The version of the guide. Based on the version of the package."
  , "guideVersion :: Version"
  , "guideVersion = " ++ (let v = guideVersion a
-                         in  "Version " ++ show (versionBranch v) ++ " []")
+                         in  "makeVersion " ++ show (versionNumbers v))
    ]
