@@ -17,7 +17,7 @@ import Data.Text
 import Data.Text.IO hiding (putStr)
 import Data.Int
 import Data.Bool
-import Prelude (Eq(..),Show(..),FilePath,Enum)
+import Prelude (Eq(..),Show(..),FilePath,Enum,Semigroup)
 import Data.Function
 import Control.Monad
 import qualified Data.List as L
@@ -74,10 +74,12 @@ data Syntax =
  | Empty
    deriving Show
 
+instance Semigroup Syntax where
+ Empty <> x = x
+ x <> Empty = x
+ x <> y = Append x y
+
 instance Monoid Syntax where
- mappend Empty x = x
- mappend x Empty = x
- mappend x y = Append x y
  mempty = Empty
 
 -- Printer
