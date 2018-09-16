@@ -1,5 +1,6 @@
 
 {-# LANGUAGE NoImplicitPrelude, OverloadedStrings #-}
+{-# LANGUAGE CPP #-}
 {-# OPTIONS_GHC -fno-warn-unused-do-bind #-}
 
 module Text.LaTeX.Guide.Syntax (
@@ -18,6 +19,11 @@ import Data.Text.IO hiding (putStr)
 import Data.Int
 import Data.Bool
 import Prelude (Eq(..),Show(..),FilePath,Enum)
+
+#if MIN_VERSION_base(4,11,0)
+import Prelude (Semigroup)
+#endif
+
 import Data.Function
 import Control.Monad
 import qualified Data.List as L
@@ -74,11 +80,25 @@ data Syntax =
  | Empty
    deriving Show
 
+#if MIN_VERSION_base(4,11,0)
+
+instance Semigroup Syntax where
+ Empty <> x = x
+ x <> Empty = x
+ x <> y = Append x y
+
 instance Monoid Syntax where
- mappend Empty x = x
- mappend x Empty = x
- mappend x y = Append x y
  mempty = Empty
+
+#else
+
+instance Monoid Syntax where
+ Empty `mappend` x = x
+ x `mappend` Empty = x
+ x `mappend` y = Append x y
+ mempty = Empty
+
+#endif
 
 -- Printer
 
