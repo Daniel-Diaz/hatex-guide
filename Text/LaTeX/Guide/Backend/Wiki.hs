@@ -1,5 +1,6 @@
 
 {-# LANGUAGE OverloadedStrings, NoImplicitPrelude #-}
+{-# LANGUAGE CPP #-}
 
 module Text.LaTeX.Guide.Backend.Wiki (
    backend
@@ -12,13 +13,20 @@ import Data.Text
 import Data.Text.IO
 import Data.Functor
 import Data.Function
-import Prelude (Eq (..), Num (..),IO,Monad (..), Int, Show (..), Semigroup)
+import Prelude (Eq (..), Num (..),IO,Monad (..), Int, Show (..))
+
+#if MIN_VERSION_base(4,11,0)
+import Prelude (Semigroup)
+#endif
+
 import Data.String (IsString (..))
 
 tag :: Text -> Text -> Text
 tag t x = mconcat [ "<" , t , ">" , x , "</" , t , ">" ]
 
 data Wiki = Wiki ( (Int,Int -> Text) -> (Int,Int -> Text,Text) )
+
+#if MIN_VERSION_base(4,11,0)
 
 instance Semigroup Wiki where
  (Wiki g) <> (Wiki g') =
@@ -28,6 +36,17 @@ instance Semigroup Wiki where
 
 instance Monoid Wiki where
  mempty = Wiki $ \(i,f) -> (i,f,mempty)
+
+#else
+
+instance Monoid Wiki where
+ (Wiki g) `mappend` (Wiki g') =
+   Wiki $ \s -> let (i',f',t) = g s
+                    (i'',f'',t') = g' (i',f')
+                in  (i'',f'',t `mappend` t')
+ mempty = Wiki $ \(i,f) -> (i,f,mempty)
+
+#endif
 
 text :: Text -> Wiki
 text t = Wiki $ \(i,f) -> (i,f,t)
