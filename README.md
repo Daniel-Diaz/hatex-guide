@@ -34,7 +34,7 @@ Once the package is installed, run GHCi and run the following session.
 
 Run the following commands to download and install the HEAD version. _Requires git and cabal_.
 
-    $ git clone git@github.com:Daniel-Diaz/hatex-guide.git
+    $ git clone https://github.com/Daniel-Diaz/hatex-guide.git
     $ cd hatex-guide
     $ cabal install
 
